@@ -1,3 +1,9 @@
 import { Routes } from '@angular/router';
+import {PostsCreateComponent} from './posts/containers/posts-create/posts-create.component';
+import {PostsListComponent} from './posts/containers/posts-list/posts-list.component';
 
-export const routes: Routes = [];
+export const routes: Routes = [
+  { path: 'create', component: PostsCreateComponent },
+  { path: 'news', component: PostsListComponent },
+  { path: '**', component: PostsListComponent }
+];

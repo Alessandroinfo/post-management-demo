@@ -3,33 +3,18 @@
   <nav>
     <ul class="flex">
       <li class="flex">
-        <a class="p-4 hover:bg-gray-500">Home</a></li>
+        <a routerLink="/news"
+          class="p-4 hover:bg-gray-500">News</a></li>
       <li class="flex">
-        <a class="p-4 hover:bg-gray-500">Create post</a></li>
+        <a routerLink="/create"
+           class="p-4 hover:bg-gray-500">Create post</a></li>
     </ul>
   </nav>
 </header>
 
 <main class="mx-10 bg-white box-content flex-1">
 
-  <section aria-labelledby="news">
-    <h1 class="text-4xl p-3 border-b border-t-gray-100" id="news">News</h1>
-
-    <article class="news-card">
-      <header>
-        <h2 class="news-title">
-          <a href="news-url.html">News Title</a>
-        </h2>
-        <time datetime="2024-10-18" class="news-date">October 18, 2024</time>
-      </header>
-
-      <figure class="news-image">
-        <img src="news-image.jpg" alt="Short description of the image">
-        <figcaption>Image caption (if necessary)</figcaption>
-      </figure>
-    </article>
-
-  </section>
+  <router-outlet></router-outlet>
 
 </main>
 
