@@ -1,0 +1,14 @@
+<article class="bg-gray-200 rounded-md cursor-pointer overflow-hidden"
+         routerLink="/post/{{post()?.id}}">
+  <figure class="flex">
+    <img class="flex-1"
+         src="{{post()?.imageURL}}" alt="Short description of the image">
+  </figure>
+
+  <header>
+    <h2 class="flex items-center justify-center px-3 py-6 box-content font-extralight">
+      <span>{{ post()?.title }}</span>
+    </h2>
+  </header>
+
+</article>
