@@ -6,9 +6,8 @@ export interface PostCard {
 export interface Post {
   id: string;
   title: string;
-  description: string;
+  body: string;
   imageURL: string;
 }
 
-export type Posts = Array<Post>;
 export type PostCards = Array<PostCard>;

@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {PostCards} from './models';
+import {PostCards} from '../../models';
 import {RouterLink} from '@angular/router';
 import {PostCardComponent} from './components/post-card/post-card.component';
 
