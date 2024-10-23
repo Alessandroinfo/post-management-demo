@@ -66,6 +66,12 @@ export class PostsState {
 
   @Action(GetPost)
   getPost(ctx: StateContext<PostsStateModel>, action: GetPost) {
+    const state = ctx.getState();
+    const found = state.localPosts.find(post => post.id === action.id);
+    if (found) {
+      return found;
+    }
+
     return this.postsService.getPost$(action.id).pipe(
       tap(result => {
         ctx.patchState({post: result});
