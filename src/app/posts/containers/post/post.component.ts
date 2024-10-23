@@ -4,7 +4,7 @@ import {Post} from '../../models';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {Store} from '@ngxs/store';
 import {Observable} from 'rxjs';
-import {AsyncPipe, NgOptimizedImage} from '@angular/common';
+import {AsyncPipe, JsonPipe, NgOptimizedImage} from '@angular/common';
 import {GetPost} from '../../store/posts/posts.actions';
 import {PostsState} from '../../store/posts/posts.state';
 
@@ -16,7 +16,9 @@ import {PostsState} from '../../store/posts/posts.state';
     AsyncPipe,         // For handling async data (like observables) in the template
     RouterLink,        // Enables navigation between routes using Angular router
     PostCardComponent, // Component to display individual post details
-    NgOptimizedImage   // Optimized image directive for performance improvements
+    NgOptimizedImage,
+    JsonPipe,
+    // Optimized image directive for performance improvements
   ],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss'

@@ -1,13 +1,13 @@
 import {Action, Selector, State, StateContext} from '@ngxs/store';
 import {CreatePost, GetPaginatedPosts, GetPost} from './posts.actions';
 import {Injectable} from '@angular/core';
-import {tap} from 'rxjs';
+import {of, tap} from 'rxjs';
 import {Paginate, Post, PostCards} from '../../models';
 import {PostsService} from '../../services/posts.service';
 
 export interface PostsStateModel {
   posts: PostCards;
-  localPosts: PostCards;
+  localPosts: Post[];
   post: Post | null;
   totalCount: number;
   paginate: Paginate;
@@ -55,8 +55,10 @@ export class PostsState {
       tap(result => {
         const state = ctx.getState();
 
+        const localPosts = state.localPosts.map(({body, ...post}) => post);
+
         ctx.patchState({
-          posts: [...result.posts, ...state.localPosts],
+          posts: [...result.posts, ...localPosts],
           totalCount: result.totalCount,
           paginate: action.paginate
         });
@@ -67,9 +69,11 @@ export class PostsState {
   @Action(GetPost)
   getPost(ctx: StateContext<PostsStateModel>, action: GetPost) {
     const state = ctx.getState();
-    const found = state.localPosts.find(post => post.id === action.id);
-    if (found) {
-      return found;
+    const post = state.localPosts.find(post => post.id === action.id);
+
+    if (post) {
+      ctx.patchState({post});
+      return of(post);
     }
 
     return this.postsService.getPost$(action.id).pipe(
