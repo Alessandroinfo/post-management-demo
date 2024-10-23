@@ -1,5 +1,5 @@
 import {Action, Selector, State, StateContext} from '@ngxs/store';
-import {GetPaginatedPosts, GetPost} from './posts.actions';
+import {CreatePost, GetPaginatedPosts, GetPost} from './posts.actions';
 import {Injectable} from '@angular/core';
 import {tap} from 'rxjs';
 import {Paginate, Post, PostCards} from '../../models';
@@ -7,6 +7,7 @@ import {PostsService} from '../../services/posts.service';
 
 export interface PostsStateModel {
   posts: PostCards;
+  localPosts: PostCards;
   post: Post | null;
   totalCount: number;
   paginate: Paginate;
@@ -16,6 +17,7 @@ export interface PostsStateModel {
   name: 'posts',
   defaults: {
     posts: [],
+    localPosts: [],
     post: null,
     totalCount: 0,
     paginate: {limit: 9, page: 1},
@@ -51,8 +53,10 @@ export class PostsState {
   getPaginatedPosts(ctx: StateContext<PostsStateModel>, action: GetPaginatedPosts) {
     return this.postsService.getPaginatedPosts$(action.paginate).pipe(
       tap(result => {
+        const state = ctx.getState();
+
         ctx.patchState({
-          posts: result.posts,
+          posts: [...result.posts, ...state.localPosts],
           totalCount: result.totalCount,
           paginate: action.paginate
         });
@@ -67,5 +71,22 @@ export class PostsState {
         ctx.patchState({post: result});
       })
     );
+  }
+
+  @Action(CreatePost)
+  createPost(ctx: StateContext<PostsStateModel>, action: CreatePost) {
+    const state = ctx.getState();
+    const id = Math.random().toString();
+
+    const newPost: Post = {
+      id,  // Genera un ID temporaneo
+      title: action.payload.title,
+      body: action.payload.body,
+      imageURL: `https://picsum.photos/1000/800?random=${id}`
+    };
+
+    ctx.patchState({
+      localPosts: [...state.localPosts, newPost]
+    });
   }
 }
