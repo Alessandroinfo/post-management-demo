@@ -2,16 +2,16 @@
   <h1 class="text-3xl p-3 border-b border-t-gray-100" id="news">Posts</h1>
 
   <div class="grid grid-cols-3 gap-4 p-10 box-content">
-    @for (post of posts(); track post.title) {
+    @for (post of (posts$ | async); track post.title) {
       <app-post-card [post]="post"></app-post-card>
     } @empty {
       @for (placeholder of Array(8); track $index;){
-        <div class="h-80 w-96 bg-gray-300 animate-pulse rounded-md"></div>
+        <div class="min-h-80 min-w-80 bg-gray-300 animate-pulse rounded-md"></div>
       }
     }
   </div>
 
   <app-paginator [limit]="paginate.limit"
-                 [totalCount]="totalCount()"
+                 [totalCount]="(totalCount$ | async)!"
                  (onPageSelect)="selectPage($event)"></app-paginator>
 </section>

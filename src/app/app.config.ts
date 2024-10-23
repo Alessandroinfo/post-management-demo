@@ -1,10 +1,12 @@
-import {ApplicationConfig, provideZoneChangeDetection} from '@angular/core';
+import {ApplicationConfig, importProvidersFrom, provideZoneChangeDetection} from '@angular/core';
 import {provideRouter} from '@angular/router';
 
 import {routes} from './app.routes';
 import {provideHttpClient} from '@angular/common/http';
 import {provideApollo} from './core/providers';
 import {Apollo} from 'apollo-angular';
+import {NgxsModule} from '@ngxs/store';
+import {PostsState} from './posts/store/posts.state';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -12,6 +14,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideApollo(),
     provideRouter(routes),
+    importProvidersFrom(NgxsModule.forRoot([PostsState])),
     Apollo
   ]
 };

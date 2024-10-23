@@ -1,25 +1,16 @@
-import {DestroyRef, inject, Injectable, signal} from '@angular/core';
-import {Apollo} from 'apollo-angular';
-import {Paginate, PostCards, PostResponse} from '../models';
-import gql from 'graphql-tag';
-import {filter, map, take} from 'rxjs';
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {inject, Injectable} from '@angular/core';
+import {Apollo, gql} from 'apollo-angular';
+import {Paginate, PostResponse} from '../models';
+import {map} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostsService {
-  readonly destroyRef = inject(DestroyRef);
-
-  posts = signal<PostCards>([]);
-  totalCount = signal<number>(0);
-
   apollo = inject(Apollo);
 
   GET_POSTS_QUERY = gql`
-    query (
-      $options: PageQueryOptions
-    ) {
+    query ($options: PageQueryOptions) {
       posts(options: $options) {
         data {
           id
@@ -36,30 +27,18 @@ export class PostsService {
     return this.apollo.watchQuery<PostResponse>({
       query: this.GET_POSTS_QUERY,
       variables: {
-        "options": {
-          "paginate": paginate
+        options: {
+          paginate: paginate
         }
       }
     }).valueChanges.pipe(
-      takeUntilDestroyed(this.destroyRef),
-      filter(res => !!res),
-      map(response => {
-      const posts = response.data.posts.data.map((post, i) => {
-        return {...post, imageURL: `https://picsum.photos/300/200?random=${post.id}`}
-      });
-      const totalCount = response.data.posts.meta.totalCount;
-      this.posts.set(posts);
-      this.totalCount.set(totalCount);
-    })).subscribe({
-      next(x) {
-        console.log('got value ' + x);
-      },
-      error(err) {
-        console.error('something wrong occurred: ' + err);
-      },
-      complete() {
-        console.log('done');
-      },
-    });
+      map(response => ({
+        posts: response.data.posts.data.map(post => ({
+          ...post,
+          imageURL: `https://picsum.photos/300/200?random=${post.id}`
+        })),
+        totalCount: response.data.posts.meta.totalCount
+      }))
+    );
   }
 }
