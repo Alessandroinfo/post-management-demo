@@ -10,4 +10,14 @@ export interface Post {
   imageURL: string;
 }
 
+export interface Paginate {
+  page: number;
+  limit: number;
+}
+
+export interface PaginatedPosts {
+  posts: PostCards;
+  totalCount: number;
+}
+
 export type PostCards = Array<PostCard>;

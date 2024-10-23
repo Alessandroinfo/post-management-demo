@@ -1,9 +1,9 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {PostCards} from '../../models';
+import {Paginate, PaginatedPosts} from '../../models';
 import {RouterLink} from '@angular/router';
 import {PostCardComponent} from './components/post-card/post-card.component';
 import {PostsService} from '../../services/posts.service';
-import {Subject} from 'rxjs';
+import {Observable} from 'rxjs';
 import {AsyncPipe} from '@angular/common';
 
 @Component({
@@ -19,11 +19,17 @@ import {AsyncPipe} from '@angular/common';
   styleUrl: './posts-list.component.scss'
 })
 export class PostsListComponent implements OnInit{
+  protected readonly Array = Array;
 
   postService = inject(PostsService);
-  posts$: Subject<PostCards> = new Subject<PostCards>();
+  paginatedPosts$: Observable<PaginatedPosts> = new Observable<PaginatedPosts>();
 
   ngOnInit() {
-    this.postService.getPosts$().subscribe()
+    const paginate: Paginate = {
+      page: 1,
+      limit: 5
+    }
+    this.paginatedPosts$ = this.postService.getPaginatedPosts$(paginate);
   }
+
 }
