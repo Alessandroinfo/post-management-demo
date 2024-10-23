@@ -1,10 +1,11 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {Paginate, PaginatedPosts} from '../../models';
+import {Component, inject, OnInit, signal} from '@angular/core';
+import {Paginate, PaginatedPosts, PostCards} from '../../models';
 import {RouterLink} from '@angular/router';
 import {PostCardComponent} from './components/post-card/post-card.component';
 import {PostsService} from '../../services/posts.service';
 import {Observable} from 'rxjs';
 import {AsyncPipe} from '@angular/common';
+import {PaginatorComponent} from './components/paginator/paginator.component';
 
 @Component({
   selector: 'app-posts-list',
@@ -12,7 +13,8 @@ import {AsyncPipe} from '@angular/common';
   imports: [
     RouterLink,
     PostCardComponent,
-    AsyncPipe
+    AsyncPipe,
+    PaginatorComponent
   ],
   providers: [PostsService],
   templateUrl: './posts-list.component.html',
@@ -22,14 +24,16 @@ export class PostsListComponent implements OnInit{
   protected readonly Array = Array;
 
   postService = inject(PostsService);
-  paginatedPosts$: Observable<PaginatedPosts> = new Observable<PaginatedPosts>();
+  posts= signal<PostCards>([]);
+  totalCount= signal<number>(0);
 
   ngOnInit() {
-    const paginate: Paginate = {
-      page: 1,
-      limit: 5
-    }
-    this.paginatedPosts$ = this.postService.getPaginatedPosts$(paginate);
+    this.posts = this.postService.posts;
+    this.totalCount = this.postService.totalCount;
+    this.postService.getPaginatedPosts$({limit: 8, page: 1});
   }
 
+  selectPage(paginate: Paginate) {
+    this.postService.getPaginatedPosts$(paginate);
+  }
 }
