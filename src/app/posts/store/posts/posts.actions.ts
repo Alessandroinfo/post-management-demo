@@ -1,4 +1,4 @@
-import {Paginate} from '../models';
+import {Paginate} from '../../models';
 
 export class GetPaginatedPosts {
   static readonly type = '[Posts] Get Paginated Posts';

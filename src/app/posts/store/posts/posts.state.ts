@@ -2,8 +2,8 @@ import {Action, Selector, State, StateContext} from '@ngxs/store';
 import {GetPaginatedPosts} from './posts.actions';
 import {Injectable} from '@angular/core';
 import {tap} from 'rxjs';
-import {Paginate, PostCards} from '../models';
-import {PostsService} from '../services/posts.service';
+import {Paginate, PostCards} from '../../models';
+import {PostsService} from '../../services/posts.service';
 
 export interface PostsStateModel {
   posts: PostCards;

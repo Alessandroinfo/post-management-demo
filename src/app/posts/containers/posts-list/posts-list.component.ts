@@ -7,8 +7,8 @@ import {Observable} from 'rxjs';
 import {AsyncPipe} from '@angular/common';
 import {PaginatorComponent} from './components/paginator/paginator.component';
 import {Store} from '@ngxs/store';
-import {GetPaginatedPosts} from '../../store/posts.actions';
-import {PostsState} from '../../store/posts.state';
+import {GetPaginatedPosts} from '../../store/posts/posts.actions';
+import {PostsState} from '../../store/posts/posts.state';
 
 @Component({
   selector: 'app-posts-list',
