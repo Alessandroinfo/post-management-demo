@@ -7,7 +7,6 @@ import {provideApollo} from './core/providers';
 import {Apollo} from 'apollo-angular';
 import {NgxsModule} from '@ngxs/store';
 import {PostsState} from './posts/store/posts/posts.state';
-import {PostState} from './posts/store/post/post.state';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,7 +14,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideApollo(),
     provideRouter(routes),
-    importProvidersFrom(NgxsModule.forRoot([PostsState, PostState])),
+    importProvidersFrom(NgxsModule.forRoot([PostsState])),
     Apollo
   ]
 };
