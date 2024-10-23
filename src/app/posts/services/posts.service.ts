@@ -35,7 +35,7 @@ export class PostsService {
       map(response => ({
         posts: response.data.posts.data.map(post => ({
           ...post,
-          imageURL: `https://picsum.photos/300/200?random=${post.id}`
+          imageURL: `https://picsum.photos/1000/800?random=${post.id}`
         })),
         totalCount: response.data.posts.meta.totalCount
       }))
