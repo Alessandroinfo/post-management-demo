@@ -2,7 +2,7 @@ import {DestroyRef, inject, Injectable, signal} from '@angular/core';
 import {Apollo} from 'apollo-angular';
 import {Paginate, PostCards, PostResponse} from '../models';
 import gql from 'graphql-tag';
-import {map, take} from 'rxjs';
+import {filter, map, take} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Injectable({
@@ -42,6 +42,7 @@ export class PostsService {
       }
     }).valueChanges.pipe(
       takeUntilDestroyed(this.destroyRef),
+      filter(res => !!res),
       map(response => {
       const posts = response.data.posts.data.map((post, i) => {
         return {...post, imageURL: `https://picsum.photos/300/200?random=${post.id}`}

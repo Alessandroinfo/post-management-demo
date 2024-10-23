@@ -11,7 +11,7 @@
     }
   </div>
 
-  <app-paginator [limit]="8"
+  <app-paginator [limit]="paginate.limit"
                  [totalCount]="totalCount()"
                  (onPageSelect)="selectPage($event)"></app-paginator>
 </section>

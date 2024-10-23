@@ -27,10 +27,11 @@ export class PostsListComponent implements OnInit{
   posts= signal<PostCards>([]);
   totalCount= signal<number>(0);
 
+  paginate: Paginate = {limit: 9, page: 1};
   ngOnInit() {
     this.posts = this.postService.posts;
     this.totalCount = this.postService.totalCount;
-    this.postService.getPaginatedPosts$({limit: 8, page: 1});
+    this.postService.getPaginatedPosts$(this.paginate);
   }
 
   selectPage(paginate: Paginate) {
