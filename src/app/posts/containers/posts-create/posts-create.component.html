@@ -1,19 +1,25 @@
 <section aria-labelledby="news">
+  <!-- Section header for the form, using Tailwind CSS for styling and associated with aria-labelledby for accessibility -->
   <h1 class="text-3xl p-3 border-b border-t-gray-100" id="news">New post</h1>
 
+  <!-- Form bound to the Angular Reactive Form (postForm) and submits via ngSubmit -->
   <form [formGroup]="postForm" (ngSubmit)="onSubmit()" class="p-8 space-y-6">
+
+    <!-- Input for the post title, using formControlName to bind the title control to the form -->
     <div>
       <label for="title" class="block text-lg font-medium text-gray-700">Title</label>
       <input type="text" id="title" formControlName="title"
              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm">
     </div>
 
+    <!-- Textarea for the post body, bound to the body form control -->
     <div>
       <label for="body" class="block text-lg font-medium text-gray-700">Body</label>
       <textarea id="body" formControlName="body" rows="5"
                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"></textarea>
     </div>
 
+    <!-- Submit button for the form -->
     <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">Create Post</button>
   </form>
 </section>

@@ -11,22 +11,25 @@ import {PostsState} from '../../store/posts/posts.state';
 @Component({
   selector: 'app-post',
   standalone: true,
+  // Declare the imports needed for this standalone component
   imports: [
-    AsyncPipe,
-    RouterLink,
-    PostCardComponent,
-    NgOptimizedImage
+    AsyncPipe,         // For handling async data (like observables) in the template
+    RouterLink,        // Enables navigation between routes using Angular router
+    PostCardComponent, // Component to display individual post details
+    NgOptimizedImage   // Optimized image directive for performance improvements
   ],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss'
 })
 export class PostComponent implements OnInit {
+  // Observable that holds the post data, fetched from the store
   post$: Observable<Post | null> = inject(Store).select(PostsState.getPost);
 
   constructor(private store: Store, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
+    // Get the 'id' parameter from the route and dispatch an action to fetch the post details
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.store.dispatch(new GetPost(id));

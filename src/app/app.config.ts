@@ -10,11 +10,17 @@ import {PostsState} from './posts/store/posts/posts.state';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    // Optimize change detection by enabling event coalescing
     provideZoneChangeDetection({eventCoalescing: true}),
+    // Provide Angular's built-in HTTP client
     provideHttpClient(),
+    // Apollo client configuration for GraphQL
     provideApollo(),
+    // Router configuration with defined routes
     provideRouter(routes),
+    // Import NGXS state management for the PostsState
     importProvidersFrom(NgxsModule.forRoot([PostsState])),
+    // Provide Apollo service for dependency injection
     Apollo
   ]
 };

@@ -1,26 +1,31 @@
 <section class="flex flex-col min-h-[1000px]" aria-labelledby="news">
+  <!-- Main title for the post section, styled with Tailwind CSS and associated with aria-labelledby for accessibility -->
   <h1 class="text-3xl p-3 border-b border-t-gray-100" id="news">Post</h1>
 
+  <!-- Back button with a routerLink to navigate to the previous route, styled as a clickable flex item -->
   <div routerLink="../"
        class="self-start cursor-pointer px-8 pt-4 flex items-center text-zinc-500 hover:text-zinc-700 font-semibold">
     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
          xmlns="http://www.w3.org/2000/svg">
+      <!-- SVG icon representing an arrow for the back button -->
       <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
     </svg>
     Back
   </div>
 
-  @if ((post$ | async); as post){
+  <!-- Check if the post observable has data using Angular's async pipe, and render the post details if available -->
+  @if ((post$ | async); as post) {
     <div class="flex flex-col px-8 mt-4">
+      <!-- Display the post's image with lazy loading and a placeholder, using Angular's optimized image directive -->
       <img class="w-full object-cover object-top h-80 rounded-sm"
            [ngSrc]="post.imageURL"
            width="800" height="600"
            priority
            placeholder="https://placehold.co/800x600"
            alt="Alt description">
+      <!-- Render the post title and body text -->
       <h1 class="mt-6 text-4xl">{{ post.title }}</h1>
       <p class="mt-2 text-zinc-800">{{ post.body }}</p>
     </div>
   }
-
 </section>

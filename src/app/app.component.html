@@ -1,23 +1,24 @@
 <header class="flex box-content bg-black text-white justify-between items-center font-thin">
+  <!-- Website title -->
   <h1 class="text-2xl ml-3">POSTS ARCHIVE</h1>
+
+  <!-- Navigation bar with links to Home and Create Post -->
   <nav>
     <ul class="flex">
       <li class="flex">
-        <a routerLink="/posts"
-          class="p-4 hover:bg-gray-500">Home</a></li>
+        <a routerLink="/posts" class="p-4 hover:bg-gray-500">Home</a></li>
       <li class="flex">
-        <a routerLink="/create"
-           class="p-4 hover:bg-gray-500">New post</a></li>
+        <a routerLink="/create" class="p-4 hover:bg-gray-500">New post</a></li>
     </ul>
   </nav>
 </header>
 
+<!-- Main content area where routed components are displayed -->
 <main class="flex flex-col mx-10 bg-white box-content flex-1">
-
   <router-outlet></router-outlet>
-
 </main>
 
+<!-- Footer with site information -->
 <footer class="bg-black px-3 py-6 text-white font-extralight">
-  <p> POST-MANAGEMENT &copy; 2024</p>
+  <p>POST-MANAGEMENT &copy; 2024</p>
 </footer>

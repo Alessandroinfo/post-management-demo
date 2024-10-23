@@ -1,13 +1,15 @@
-<section class="flex flex-col flex-1 justify-between"
-         aria-labelledby="news">
-
+<section class="flex flex-col flex-1 justify-between" aria-labelledby="news">
   <div class="flex flex-col">
+    <!-- Section header for the posts list -->
     <h1 class="text-3xl p-3 border-b border-t-gray-100" id="news">Posts</h1>
 
+    <!-- Grid layout to display post cards, or placeholders if no data is available -->
     <div class="grid grid-cols-3 gap-4 p-10 box-content">
+      <!-- Loop through posts observable using async pipe, display post cards -->
       @for (post of (posts$ | async); track post.title) {
         <app-post-card [post]="post"></app-post-card>
       } @empty {
+        <!-- Display placeholder boxes while loading -->
         @for (placeholder of Array(8); track $index; ) {
           <div class="min-h-96 min-w-80 bg-gray-300 animate-pulse rounded-md"></div>
         }
@@ -15,6 +17,7 @@
     </div>
   </div>
 
+  <!-- Paginator component, handles page selection -->
   <app-paginator class="bottom-0 relative"
                  [limit]="paginate.limit"
                  [totalCount]="(totalCount$ | async)!"

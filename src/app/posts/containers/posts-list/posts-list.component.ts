@@ -13,6 +13,7 @@ import {PostsState} from '../../store/posts/posts.state';
 @Component({
   selector: 'app-posts-list',
   standalone: true,
+  // Import necessary modules and components
   imports: [
     RouterLink,
     PostCardComponent,
@@ -23,7 +24,8 @@ import {PostsState} from '../../store/posts/posts.state';
   templateUrl: './posts-list.component.html',
   styleUrl: './posts-list.component.scss'
 })
-export class PostsListComponent implements OnInit{
+export class PostsListComponent implements OnInit {
+  // Observables for posts and total count from NGXS state
   posts$: Observable<PostCards> = inject(Store).select(PostsState.getPosts);
   totalCount$: Observable<number> = inject(Store).select(PostsState.getTotalCount);
 
@@ -31,13 +33,14 @@ export class PostsListComponent implements OnInit{
 
   paginate: Paginate = {limit: 9, page: 1};
 
-  constructor(private store: Store) {
-  }
+  constructor(private store: Store) {}
+
+  // Dispatch action to load paginated posts
   ngOnInit() {
     this.store.dispatch(new GetPaginatedPosts(this.paginate));
-
   }
 
+  // Dispatch action when page is selected
   selectPage(paginate: Paginate) {
     this.store.dispatch(new GetPaginatedPosts(paginate));
   }
