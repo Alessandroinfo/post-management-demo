@@ -2,7 +2,7 @@
   <h1 class="text-3xl p-3 border-b border-t-gray-100" id="news">Posts</h1>
 
   <div class="grid grid-cols-3 gap-4 p-10 box-content">
-    @for (post of posts; track post.title) {
+    @for (post of posts$ | async; track post.title) {
       <app-post-card [post]="post"></app-post-card>
     }
   </div>

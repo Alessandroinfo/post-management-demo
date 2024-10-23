@@ -1,8 +1,11 @@
 <article class="bg-gray-200 rounded-md cursor-pointer overflow-hidden"
          routerLink="/post/{{post()?.id}}">
   <figure class="flex">
-    <img class="flex-1"
-         src="{{post()?.imageURL}}" alt="Short description of the image">
+    <img class="flex-1 ease-out duration-100"
+         width="300" height="200"
+         priority
+         placeholder="https://placehold.co/300x200"
+         ngSrc="{{post()?.imageURL}}" alt="Short description of the image">
   </figure>
 
   <header>
